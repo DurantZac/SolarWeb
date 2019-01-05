@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27924.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "SolarWeb", "SolarWeb\SolarWeb.pyproj", "{320B9D4E-5F1E-4B40-B5ED-C792C4AFE564}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{320B9D4E-5F1E-4B40-B5ED-C792C4AFE564}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{320B9D4E-5F1E-4B40-B5ED-C792C4AFE564}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3400EB41-580A-4A10-89EA-17A9E3578653}
+	EndGlobalSection
+EndGlobal

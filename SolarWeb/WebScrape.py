@@ -2,71 +2,55 @@ from requests import get
 from requests.exceptions import RequestException
 from contextlib import closing
 from bs4 import BeautifulSoup
-import sqlite3
-import sys
-import time
-from datetime import datetime
-from pytz import timezone
-from tzlocal import get_localzone
+import sqlite3, sys, os, time, pytz, datetime, requests, json, random
+from datetime import timedelta, date
+from dateutil.relativedelta import relativedelta
+
 
 sampleFreq = 5*60
-def add_data(power_now, energy_by_day, energy_by_month, energy_total, income):
-    conn = sqlite3.connect('solarData.db')
+def add_data(row): #power_now, energy_by_day, energy_by_month, energy_total, income
+    conn = sqlite3.connect(os.path.join(sys.path[0], 'SolarWebServer/SolarData.db'))
     curs = conn.cursor()
-    now_utc = datetime.now(timezone('UTC'))
-    now_local = now_utc.astimezone(get_localzone())
-    now_local = now_local.strftime ("%Y-%m-%d %H:%M:%S")
-    curs.execute("INSERT INTO data values((?),(?),(?),(?),(?),(?),(?))",(None, now_local,power_now,energy_by_day,energy_by_month,energy_total,income))
+    now_local = datetime.datetime.now()
+    query = "INSERT OR IGNORE INTO data(TimeStamp, Watts) values('{0}',{1})".format(row[0],row[1])
+    curs.execute(query)
     conn.commit()
-    conn.close()
+    #conn.close()
 
-def try_get(url):
-    try:
-        with closing(get(url,stream=True)) as resp:
-            return resp.content
-    except RequestException as e:
-        return None
+def daterange(date1, date2):
+    for n in range(int ((date2 - date1).days)+1):
+        yield date1 + timedelta(n)
 
-def get_values():
-    raw_html = try_get("https://www.ginlongmonitoring.com/Terminal/TerminalMain.aspx?pid=12799")
-    html = BeautifulSoup(raw_html, 'html.parser')
-    for p in html.select('span'):
-        if p.has_attr('id'):
-            if p['id'] == 'ctl00_childPanel_lblNow':
-                length = len(p.text)
-                data = p.text[:length-3]
-                power_now = data
-            if p['id'] == 'ctl00_childPanel_lblDEQ':
-                length = len(p.text)
-                data = p.text[:length-4]
-                energy_by_day = data
-            if p['id'] == 'ctl00_childPanel_lblMEQ':
-                length = len(p.text)
-                data = p.text[:length-4]
-                energy_by_month = data
-            if p['id'] == 'ctl00_childPanel_lblSEQ2':
-                length = len(p.text)
-                data = p.text[:length-4]
-                energy_total = data
-    
-    income = round(float(energy_total) * 1000 * 0.24,2)
+startup = True
+def getData():
+            #recheck the last week on startup
+            delta = relativedelta(days=0) 
+            global startup 
+            if startup == True:
+                delta = relativedelta(days=7)
+                startup = False
+            start_dt = datetime.date.today() - delta
+            end_dt =  datetime.date.today()
+            s = requests.session()
+            s.post("https://www.ginlongmonitoring.com/Terminal/TerminalMain.aspx?pid=12799")
+            for dt in daterange(start_dt, end_dt):
+                response = s.post('https://www.ginlongmonitoring.com/Terminal/iChart/iChartService.ashx?ac=MainChart&Type=14&load_data_type=chart', params = { 'Time' : dt.strftime("%Y-%m-%d"), 'rand' : random.randint(1,100) /100, 'localTimeZone': 13})
+                responsedict = json.loads(response.text)
+                response = responsedict['power']
+                for row in response:
+                    add_data(row)
 
-    print("Now: " + power_now)  
-    print("Day: " + energy_by_day)
-    print("Month: " + energy_by_month)
-    print("Total: " + energy_total)
-    print("Income: " + str(income))
-
-    add_data(float(power_now),float(energy_by_day),float(energy_by_month),float(energy_total),float(income))
-    
+def time_in_range(start, end, x):
+    #Return true if x is in the range [start, end]
+    if start <= end:
+        return start <= x <= end
+    else:
+        return start <= x or x <= end
+  
 def main():
      while True:
-        now_utc = datetime.now(pytz.utc)
-        now_local = now_utc.astimezone(get_localzone())
-        starttime = datetime.time(5)
-        endtime = datetime.time(22)
-        if(now_local.time > starttime and now_local.time < endtime):
-            get_values()
-        time.sleep(sampleFreq)
+         if time_in_range(datetime.time(5, 0, 0), datetime.time(22, 0, 0), datetime.datetime.now().time()):
+             getData()
+         time.sleep(sampleFreq)
 
 main()

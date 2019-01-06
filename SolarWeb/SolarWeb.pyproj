@@ -11,7 +11,7 @@
     <OutputPath>.</OutputPath>
     <Name>SolarWeb</Name>
     <RootNamespace>SolarWeb</RootNamespace>
-    <PublishUrl>\\10.9.0.57\PiShare</PublishUrl>
+    <PublishUrl>\\10.9.0.57\</PublishUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -28,7 +28,7 @@
     <Folder Include="SolarWebServer\templates\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="solarData.db" />
+    <Content Include="SolarWebServer\SolarData.db" />
     <Content Include="SolarWebServer\static\index.js" />
     <Content Include="SolarWebServer\static\js\dx.all.debug.js" />
     <Content Include="SolarWebServer\static\js\dx.all.js" />
@@ -50,7 +50,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CreateTable.py" />
-    <Compile Include="fillDb.py" />
     <Compile Include="SolarWebServer\GetData.py" />
     <Compile Include="WebScrape.py" />
   </ItemGroup>

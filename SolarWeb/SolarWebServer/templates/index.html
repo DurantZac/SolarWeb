@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Solar Data</title>
+    <link rel="shortcut icon" href="">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+<script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.1.0.min.js"></script>
+
+<!-- Reference either Knockout or AngularJS, if you do -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
+
+<!-- DevExtreme themes -->
+<link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/18.2.3/css/dx.common.css" />
+<link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/18.2.3/css/dx.light.css" />
+ 
+<!-- DevExtreme library -->
+<script type="text/javascript" src="https://cdn3.devexpress.com/jslib/18.2.3/js/dx.all.js"></script>
+<!-- <script type="text/javascript" src="https://cdn3.devexpress.com/jslib/18.2.3/js/dx.mobile.js"></script> -->
+<!-- <script type="text/javascript" src="https://cdn3.devexpress.com/jslib/18.2.3/js/dx.web.js"></script> -->
+<!-- <script type="text/javascript" src="https://cdn3.devexpress.com/jslib/18.2.3/js/dx.viz.js"></script> -->
+<!-- <script type="text/javascript" src="https://cdn3.devexpress.com/jslib/18.2.3/js/dx.viz-web.js"></script> -->
+
+    <!-- App -->
+    <link rel="stylesheet" type="text/css" href="static/style.css" />
+    <script type="text/javascript" src="static/index.js"></script>    
+
+
+
+</head>
+<body>
+    <table style="width:100%">
+        <tr>
+            <td width="20%">
+                <img src="../static/logo.png" alt="logo" height="100" width="100%">
+                <div class="gauge">
+                    <div id="gauge"></div>
+                </div>
+            </td>
+            <td width ="40%">
+                <div class="power_now">
+                    <div id="power_now"></div>
+                </div>
+            </td>
+            <td width="40%">
+                <div class="energy_by_day">
+                        <div id="energy_by_day"></div>
+                </div>
+            </td>
+        </tr>
+        <table style="width:100%; padding-top: 100px">
+            <tr>
+                <td width= "20%">
+                    <h3> Total Energy: {{ energy_total }} MWh</h3>
+                    <h3> Total Savings: ${{ income }}</h3>
+                </td>
+                <td width = "80%">
+                    <div class="energy_by_month">
+                            <div id="energy_by_month"></div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </table>
+</body>
+</html>

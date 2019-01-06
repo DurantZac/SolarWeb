@@ -4,13 +4,14 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>320b9d4e-5f1e-4b40-b5ed-c792c4afe564</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>SolarWeb.py</StartupFile>
+    <StartupFile>SolarWebServer\GetData.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>SolarWeb</Name>
     <RootNamespace>SolarWeb</RootNamespace>
+    <PublishUrl>\\10.9.0.57\PiShare</PublishUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,7 +22,37 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="SolarWeb.py" />
+    <Folder Include="SolarWebServer\" />
+    <Folder Include="SolarWebServer\static\" />
+    <Folder Include="SolarWebServer\static\js\" />
+    <Folder Include="SolarWebServer\templates\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="solarData.db" />
+    <Content Include="SolarWebServer\static\index.js" />
+    <Content Include="SolarWebServer\static\js\dx.all.debug.js" />
+    <Content Include="SolarWebServer\static\js\dx.all.js" />
+    <Content Include="SolarWebServer\static\js\dx.chartjs.debug.js" />
+    <Content Include="SolarWebServer\static\js\dx.chartjs.js" />
+    <Content Include="SolarWebServer\static\js\dx.module-widgets-base.js" />
+    <Content Include="SolarWebServer\static\js\dx.module-widgets-web.js" />
+    <Content Include="SolarWebServer\static\js\dx.phonejs.debug.js" />
+    <Content Include="SolarWebServer\static\js\dx.phonejs.js" />
+    <Content Include="SolarWebServer\static\js\dx.webappjs.debug.js" />
+    <Content Include="SolarWebServer\static\js\dx.webappjs.js" />
+    <Content Include="SolarWebServer\static\js\jquery-1.11.3.js" />
+    <Content Include="SolarWebServer\static\js\jquery-1.11.3.min.js" />
+    <Content Include="SolarWebServer\static\js\jquery-2.1.4.js" />
+    <Content Include="SolarWebServer\static\js\jquery-2.1.4.min.js" />
+    <Content Include="SolarWebServer\static\logo.png" />
+    <Content Include="SolarWebServer\static\style.css" />
+    <Content Include="SolarWebServer\templates\index.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CreateTable.py" />
+    <Compile Include="fillDb.py" />
+    <Compile Include="SolarWebServer\GetData.py" />
+    <Compile Include="WebScrape.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

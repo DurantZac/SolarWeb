@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <title>Solar Data</title>
@@ -39,30 +39,41 @@
                     <div id="gauge"></div>
                 </div>
             </td>
-            <td width ="40%">
+            <td width="40%">
                 <div class="power_now">
                     <div id="power_now"></div>
                 </div>
             </td>
             <td width="40%">
                 <div class="energy_by_day">
-                        <div id="energy_by_day"></div>
+                    <div id="energy_by_day"></div>
                 </div>
             </td>
         </tr>
-        <table style="width:100%; padding-top: 100px">
+    </table>
+        <table style="width:100%; padding-top: 100px; ">
             <tr>
-                <td width= "20%">
-                    <h3> Total Energy: {{ energy_total }} MWh</h3>
-                    <h3> Total Savings: ${{ income }}</h3>
+                <td width="20%" padding-right="25px">
+                    <div style="border: 2px solid #53565A; border-radius: 10px; background-color: #e8eaed; text-align: center; font: Calibri; font-size:large">
+                        <font color="0092BC">
+                            <h3> Total Energy: {{ energy_total }} MWh</h3>
+                            <h3> Total Energy Savings: ${{ income }}</h3>
+                        </font>
+                    </div>
                 </td>
-                <td width = "80%">
+                <td width="40%">
                     <div class="energy_by_month">
-                            <div id="energy_by_month"></div>
+                        <div id="energy_by_month"></div>
+                    </div>
+                </td>
+                <td width="40%">
+                    <div class="return_on_investment">
+                        <div id="return_on_investment"></div>
                     </div>
                 </td>
             </tr>
-        </table>
+
     </table>
 </body>
 </html>
+
